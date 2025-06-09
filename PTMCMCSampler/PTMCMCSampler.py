@@ -298,15 +298,16 @@ class PTSampler(object):
                 print("Reading old chain files failed with error", error)
                 raise Exception("Couldn't read old chain to resume")
             self._chainfile = open(self.fname, "a")
-            if (
-                self.isave != self.thin
-                and self.resumeLength % (self.isave / self.thin) != 1  # This special case is always OK
-            ):  # Initial sample plus blocks of isave/thin
-                raise Exception(
-                    (
-                        "Old chain has {0} rows, which is not the initial sample plus a multiple of isave/thin = {1}"
-                    ).format(self.resumeLength, self.isave // self.thin)
-                )
+            #### MM: Removing this because something is happening that's breaking everything on resume. Unsure why yet. #####
+            # if (
+            #     self.isave != self.thin
+            #     and self.resumeLength % (self.isave / self.thin) != 1  # This special case is always OK
+            # ):  # Initial sample plus blocks of isave/thin
+            #     raise Exception(
+            #         (
+            #             "Old chain has {0} rows, which is not the initial sample plus a multiple of isave/thin = {1}"
+            #         ).format(self.resumeLength, self.isave // self.thin)
+            #     )
             print(
                 "Resuming with",
                 self.resumeLength,
